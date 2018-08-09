@@ -32,9 +32,10 @@
             </Group>
             <TextField id="heightField" fx:id="heightField" alignment="CENTER" layoutX="1371.0" layoutY="38.0" onAction="#createButton" text="Height" />
             <TextField id="lengthField" fx:id="lengthField" alignment="CENTER" layoutX="1371.0" layoutY="74.0" onAction="#createButton" text="Length" />
-            <TextField id="scaleField" fx:id="scaleField" alignment="CENTER" layoutX="1371.0" layoutY="110" onAction="#createButton" text="Scale" />
+            <TextField id="scaleField" fx:id="scaleField" alignment="CENTER" layoutX="1371.0" layoutY="110" onAction="#createButton" text="10" />
             <Button id="createButton" fx:id="createButton" layoutX="1433.0" layoutY="150.0" mnemonicParsing="false" onAction="#createButton" text="Create" />
             <Button id="saveButton" fx:id="saveButton" layoutX="1567.0" layoutY="38.0" mnemonicParsing="false" onAction="#saveButton" text="Save" />
+            <Button id="solveButton" fx:id="solveButton" layoutX="1564.0" layoutY="74.0" mnemonicParsing="false" onAction="#solveButton" text="Solve" />
          </children></Pane>
    </children>
 </GridPane>

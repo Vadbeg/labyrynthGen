@@ -16,6 +16,7 @@ import java.awt.image.RenderedImage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -31,6 +32,7 @@ public class Controller {
     private Group group;
 
     int[][] maze;
+    int scale = 10;
 
     @FXML
     public void createButton(ActionEvent event) {
@@ -40,7 +42,7 @@ public class Controller {
 
         int heightMaze = Integer.parseInt(heightField.getText());
         int lengthMaze = Integer.parseInt(lengthField.getText());
-        int scale = Integer.parseInt(scaleField.getText());
+        scale = Integer.parseInt(scaleField.getText());
 
         if (heightMaze != 0 && lengthMaze != 0) {
 
@@ -62,16 +64,41 @@ public class Controller {
                 }
             }
 
-
             group.getChildren().add(areaOfLab);
 
             System.out.println("DONE");
-
 
         } else {
             throw new IllegalArgumentException();
         }
 
+    }
+
+    @FXML
+    private void solveButton(ActionEvent event){
+        if(maze != null){
+            ArrayList<int[]> result = LabSolve.solveMaze(maze);
+            int[][] solvedMaze = LabSolve.resultMaze;
+
+            GraphicsContext gr = areaOfLab.getGraphicsContext2D();
+
+            for(int i = 0 ; i < solvedMaze.length ; i++){
+                for(int l = 0 ; l < solvedMaze[0].length ; l++) {
+                    gr.setFill(Color.BLUE);
+                    if (solvedMaze[i][l] == LabSolve.way) {
+                        gr.fillRect(l * scale, i * scale, scale, scale);
+                    }
+                }
+            }
+
+            for(int i = 0 ; i < result.size() ; i++){
+                int[] oneStep = result.get(i);
+                gr.setFill(Color.RED);
+                gr.fillRect(oneStep[1] * scale , oneStep[0] * scale , scale , scale);
+                gr.fillRect(0 , scale , scale , scale);
+                gr.fillRect((maze[0].length - 1) * scale , (maze.length - 2) * 10 , scale , scale);
+            }
+        }
     }
 
     @FXML

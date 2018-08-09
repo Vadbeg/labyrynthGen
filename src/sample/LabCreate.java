@@ -72,11 +72,21 @@ public class LabCreate {
 
 
         while (!(mazeIsFulfill(maze) )) {
-            System.out.println(steps.size());
-            System.out.println("H: " + height);
-            System.out.println("L: " + length);
-
             one = new int[2];
+
+            if (!(mazeIsFulfill(maze)) && (noSteps(maze , height , length , maze.length , maze[0].length)
+                    || ((height == maze.length - 2) && (length == maze[0].length - 2)))){
+                if(!((height == maze.length - 2) && (length == maze[0].length - 2))) {
+                    one[0] = height;
+                    one[1] = length;
+                    steps.add(one);
+                }
+                int[] newPoints = getNewPoint(maze , steps);
+                height = newPoints[0];
+                length = newPoints[1];
+                continue;
+            }
+
             one[0] = height;
             one[1] = length;
 
@@ -86,13 +96,10 @@ public class LabCreate {
             if(numPr != num) {
                 steps.add(one);
             }
-            //System.out.println("numPr: " + numPr);
-            //System.out.println("num: " + num);
 
             numPr = num;
 
             int rnd = random.nextInt(4);
-
             if ((rnd == 0) && (height < (maze.length - 3)) && isFree(maze, height + 2, length)) {
                 maze[height + 1][length] = step;
                 maze[height + 2][length] = step;
@@ -117,19 +124,6 @@ public class LabCreate {
                 length = length - 2;
                 num++;
                 continue;
-            }
-
-
-            if (!(mazeIsFulfill(maze)) && (noSteps(maze , height , length , maze.length , maze[0].length) || (((height == maze.length - 2) && (length == maze.length - 2))))){
-                one[0] = height;
-                one[1] = length;
-                //System.out.println(steps.size());
-                //System.out.println("H: " + height);
-                //System.out.println("L: " + length);
-                steps.add(one);
-                int[] newPoints = getNewPoint(maze , steps);
-                height = newPoints[0];
-                length = newPoints[1];
             }
 
         }
@@ -174,9 +168,7 @@ public class LabCreate {
             for (int i = 0; i < list.size(); i++) {
                 int[] step = list.get(i);
                 if (!noSteps(maze, step[0], step[1], maze.length, maze[0].length)) {
-                    if ((step[0] != maze.length - 2) && (step[1] != maze[0].length)) {
-                        array.add(list.get(i));
-                    }
+                    array.add(list.get(i));
                 }
             }
 
@@ -184,8 +176,13 @@ public class LabCreate {
 
         Random random = new Random();
 
-        //System.out.println(array.size());
-        int num = random.nextInt(array.size());
+        System.out.println(array.size());
+        int num = 0;
+        try {
+            num = random.nextInt(array.size());
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
         res = array.get(num);
         array.remove(num);
 
