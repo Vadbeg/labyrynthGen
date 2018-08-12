@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.Group;
 import javafx.scene.image.WritableImage;
@@ -25,7 +26,7 @@ public class Controller {
     @FXML
     private TextField lengthField;
     @FXML
-    private TextField scaleField;
+    private Slider scaleField;
     @FXML
     private Canvas areaOfLab;
     @FXML
@@ -42,7 +43,7 @@ public class Controller {
 
         int heightMaze = Integer.parseInt(heightField.getText());
         int lengthMaze = Integer.parseInt(lengthField.getText());
-        scale = Integer.parseInt(scaleField.getText());
+        scale = (int)(scaleField.getValue());
 
         if (heightMaze != 0 && lengthMaze != 0) {
 
@@ -96,7 +97,7 @@ public class Controller {
                 gr.setFill(Color.RED);
                 gr.fillRect(oneStep[1] * scale , oneStep[0] * scale , scale , scale);
                 gr.fillRect(0 , scale , scale , scale);
-                gr.fillRect((maze[0].length - 1) * scale , (maze.length - 2) * 10 , scale , scale);
+                gr.fillRect((maze[0].length - 1) * scale , (maze.length - 2) * scale , scale , scale);
             }
         }
     }
@@ -120,7 +121,7 @@ public class Controller {
         }
     }
 
-    public void clearCanvas(Canvas canvas , int width , int length){
+    private void clearCanvas(Canvas canvas , int width , int length){
         GraphicsContext gr = canvas.getGraphicsContext2D();
         gr.clearRect(0 , 0 , width , length);
     }

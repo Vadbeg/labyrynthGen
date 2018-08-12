@@ -71,11 +71,11 @@ public class LabCreate {
         maze[height][length] = step; //Start point
 
 
-        while (!(mazeIsFulfill(maze) )) {
+        while (!(mazeIsFulfill(maze))) {
             one = new int[2];
 
-            if (!(mazeIsFulfill(maze)) && (noSteps(maze , height , length , maze.length , maze[0].length)
-                    || ((height == maze.length - 2) && (length == maze[0].length - 2)))){
+            if (noSteps(maze , height , length , maze.length , maze[0].length)
+                    || ((height == maze.length - 2) && (length == maze[0].length - 2))){
                 if(!((height == maze.length - 2) && (length == maze[0].length - 2))) {
                     one[0] = height;
                     one[1] = length;
@@ -105,31 +105,26 @@ public class LabCreate {
                 maze[height + 2][length] = step;
                 height = height + 2;
                 num++;
-                continue;
             } else if ((rnd == 1) && (height > 2) && isFree(maze, height - 2, length)) {
                 maze[height - 1][length] = step;
                 maze[height - 2][length] = step;
                 height = height - 2;
                 num++;
-                continue;
             } else if ((rnd == 2) && (length < (maze[0].length - 3)) && isFree(maze, height, length + 2)) {
                 maze[height][length + 1] = step;
                 maze[height][length + 2] = step;
                 length = length + 2;
                 num++;
-                continue;
             } else if ((rnd == 3) && (length > 2) && isFree(maze, height, length - 2)) {
                 maze[height][length - 1] = step;
                 maze[height][length - 2] = step;
                 length = length - 2;
                 num++;
-                continue;
             }
 
         }
 
-
-        array.removeAll(array);
+        array.clear();
         return maze;
     }
 
